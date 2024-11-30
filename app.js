@@ -19,6 +19,12 @@ app.get("/service", (req,res)=>{
 app.get("/contact", (req,res)=>{
     res.render("contact.ejs");
 })
+app.get("/donate", (req,res)=>{
+    res.render("donate.ejs");
+})
+app.get("/receiver", (req,res)=>{
+    res.render("receiver.ejs");
+})
 
 app.listen(3000, ()=>{
     console.log("Server is listening");
