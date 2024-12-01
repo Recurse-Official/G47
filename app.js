@@ -29,16 +29,24 @@ app.get("/contact", (req,res)=>{
 app.get("/donate", (req,res)=>{
     res.render("donate.ejs");
 });
-app.get("/receive", (req,res)=>{
-    res.render("receive.ejs");
-});
+app.get("/receive", async (req, res) => {
+    try {
+      const organizations = await Organization.find(); // Fetch all organizations from the database
+      res.render("receive", { organizations }); // Pass data to the EJS template
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      res.status(500).send("Internal Server Error");
+    }
+  });
+  
 app.get("/donate/register", (req,res)=>{
     res.render("donate-reg.ejs");
 });
-
-app.post("/submit", async (req, res) => {
+app.get("/receive/register", (req,res)=>{
+    res.render("receive-reg.ejs");
+});
+app.post("/submit/donor", async (req, res) => {
     try {
-      // Extract form data from the request body
       const data = {
         organizationType: req.body.organizationType,
         organizationDetails: {
@@ -63,9 +71,10 @@ app.post("/submit", async (req, res) => {
           password: req.body.password,
         },
       };
-      
+  
       const newOrganization = new Organization(data);
       await newOrganization.save();
+  
       res.status(200).redirect("/");
     } catch (error) {
       console.error("Error saving data:", error);
