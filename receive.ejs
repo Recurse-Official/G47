@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title>Organization Details</title>
+</head>
+
+<body>
+    <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+            <svg class="bi me-2" width="40" height="32">
+                <use xlink:href="#bootstrap"></use>
+            </svg>
+            <span class="fs-4">Sharing Surplus</span>
+        </a>
+
+        <ul class="nav nav-pills">
+            <li class="nav-item"><a href="/" class="nav-link" aria-current="page">Home</a></li>
+            <li class="nav-item"><a href="/About" class="nav-link">About</a></li>
+            <li class="nav-item"><a href="/services" class="nav-link">Services</a></li>
+            <li class="nav-item"><a href="/contact" class="nav-link">Contact</a></li>
+        </ul>
+    </header>
+
+    <div class="container px-4 py-5" id="hanging-icons">
+        <h2 class="pb-2 border-bottom">Food Donor Details</h2>
+        
+        <% if (organizations.length > 0) { %>
+            <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+                <% organizations.forEach((org, index) => { %>
+                    <% if (index % 3 === 0 && index > 0) { %> <!-- Start a new row every 3 organizations -->
+                        </div>
+                        <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+                    <% } %>
+                    <div class="col d-flex align-items-start">
+                        <div class="card p-3">
+                            <h3>Organization Type: <%= org.organizationType %></h3>
+                            <ul>
+                                <li><strong>Organization Name:</strong> <%= org.organizationDetails.orgName %></li>
+                                <li><strong>Contact Person:</strong> <%= org.organizationDetails.contactPerson %></li>
+                                <li><strong>Email:</strong> <%= org.organizationDetails.email %></li>
+                                <li><strong>Phone:</strong> <%= org.organizationDetails.phone %></li>
+                            </ul>
+                            <h4>Location Details</h4>
+                            <ul>
+                                <li><strong>Address:</strong> <%= org.locationDetails.address %></li>
+                                <li><strong>City:</strong> <%= org.locationDetails.city %></li>
+                                <li><strong>State:</strong> <%= org.locationDetails.state %></li>
+                                <li><strong>Pincode:</strong> <%= org.locationDetails.pincode %></li>
+                                <li><strong>Capacity:</strong> <%= org.locationDetails.capacity %></li>
+                                <li><strong>Typical Timings:</strong> <%= org.locationDetails.typicalTimings %></li>
+                            </ul>
+                            <a href="/receive/register" class="btn btn-primary">To Receive</a>
+                        </div>
+                    </div>
+                <% }); %>
+            </div>
+        <% } else { %>
+            <p>No data available.</p>
+        <% } %>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+    </script>
+</body>
+</html>
